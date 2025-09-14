@@ -1,6 +1,7 @@
 package com.toxin.spring_boot_tutorial.service;
 
 import com.toxin.spring_boot_tutorial.entity.Department;
+import com.toxin.spring_boot_tutorial.error.DepartmentNotFoundException;
 import com.toxin.spring_boot_tutorial.repository.DepartmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService{
@@ -29,8 +31,13 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Department fetchDepartmentByID(Long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+    public Department fetchDepartmentByID(Long departmentId) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(departmentId);
+
+        if (!department.isPresent()){
+            throw new DepartmentNotFoundException("Department not available");
+        }
+        return department.get();
     }
 
     @Override

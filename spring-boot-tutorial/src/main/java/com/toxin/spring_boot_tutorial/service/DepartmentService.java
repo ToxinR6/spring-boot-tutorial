@@ -1,19 +1,20 @@
 package com.toxin.spring_boot_tutorial.service;
 
 import com.toxin.spring_boot_tutorial.entity.Department;
+import com.toxin.spring_boot_tutorial.error.DepartmentNotFoundException;
 
 import java.util.List;
 
 public interface DepartmentService {
     Department saveDepartment(Department department);
 
-    public List<Department> fetchDepartment();
+    List<Department> fetchDepartment();
 
-    public Department fetchDepartmentByID(Long departmentId);
+    Department fetchDepartmentByID(Long departmentId) throws DepartmentNotFoundException;
 
-    public void deleteDepartmentByID(Long departmentId);
+    void deleteDepartmentByID(Long departmentId);
 
-    public Department updateDepartment(Long departmentId, Department department);
+    Department updateDepartment(Long departmentId, Department department);
 
-    public Department fetchDepartmentByName(String departmentName);
+    Department fetchDepartmentByName(String departmentName);
 }

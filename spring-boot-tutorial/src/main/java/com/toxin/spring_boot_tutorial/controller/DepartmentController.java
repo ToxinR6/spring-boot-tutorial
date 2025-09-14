@@ -1,7 +1,11 @@
 package com.toxin.spring_boot_tutorial.controller;
 
 import com.toxin.spring_boot_tutorial.entity.Department;
+import com.toxin.spring_boot_tutorial.error.DepartmentNotFoundException;
 import com.toxin.spring_boot_tutorial.service.DepartmentService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +18,23 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    private final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
+
     @PostMapping("/departments")
-    public Department saveDepartment(@RequestBody Department department)
+    public Department saveDepartment(@Valid @RequestBody Department department)
     {
+        LOGGER.info("Inside saveDepartment of DepartmentController");
         return departmentService.saveDepartment(department);
     }
 
     @GetMapping("/departments")
     public List<Department> fetchDepartment(){
+        LOGGER.info("Inside fetchDepartmentList of DepartmentController");
         return departmentService.fetchDepartment();
     }
 
     @GetMapping("/departments/{id}")
-    public Department fetchDepartmentByID(@PathVariable("id")Long departmentId){
+    public Department fetchDepartmentByID(@PathVariable("id")Long departmentId) throws DepartmentNotFoundException {
         return departmentService.fetchDepartmentByID(departmentId);
     }
 
