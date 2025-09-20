@@ -1,0 +1,63 @@
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp
+    password: root
+  application:
+    name: spring-boot-tutorial
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message: Welcome to Homepage
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp-qa
+    password: root
+  application:
+    name: spring-boot-tutorial
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message: Welcome to Homepage
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp-prod
+    password: root
+  application:
+    name: spring-boot-tutorial
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message: Welcome to Homepage
